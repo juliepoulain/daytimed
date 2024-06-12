@@ -56,10 +56,10 @@ class RoutineTemplate(db.Model, SerializerMixin):
     __tablename__ = "routinetemplates"
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False)
-    total_timer_length = db.Column(db.Text, nullable=True)
-    start_time = db.Column(db.Integer, nullable=False)
-    end_time = db.Column(db.String, nullable=True)
+    routine_name = db.Column(db.String, nullable=False)
+    total_timer_length = db.Column(db.Integer)
+    # start_time = db.Column(db.Integer)
+    # end_time = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     # task_templates = db.relationship('Task Template', back_populates='routinetemplates')
@@ -89,8 +89,8 @@ class TaskRoutine(db.Model, SerializerMixin):
     routinetemplate_id = db.Column(db.Integer, db.ForeignKey("routinetemplates.id"), nullable=False)
 
     # add relationships
-    # tasktemplate = db.relationship("Tasktemplate", back_populates="taskroutine")
-    # routinetemplate = db.relationship("Routinetemplate", back_populates="taskroutine")
+    # tasktemplate = db.relationship("Tasktemplate", back_populates="taskroutines")
+    # routinetemplate = db.relationship("Routinetemplate", back_populates="taskroutines")
 
     # add serialization rules
     # serialize_rules = ('-owner.visits', '-sitter.visits', '-pet.visits', '-owner.pets', '-sitter.owners')

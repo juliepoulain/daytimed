@@ -9,14 +9,15 @@ if __name__ == '__main__':
 
 with app.app_context():
 
-    print("Deleting users...")
-    User.query.delete()
+    print("Deleting taskroutines...")
+    TaskRoutine.query.delete()
     print("Deleting tasktemplates...")
     TaskTemplate.query.delete()
     print("Deleting routinetemplates...")
     RoutineTemplate.query.delete()
-    print("Deleting taskroutines...")
-    TaskRoutine.query.delete()
+    print("Deleting users...")
+    User.query.delete()
+
 
     print("Creating users...")
     julie = User(name="Julie", email="juliempoulain@gmail.com")
@@ -38,84 +39,48 @@ with app.app_context():
     task9 = TaskTemplate(task_name="work", timer_length=10800, user_id=julie.id)
     task10 = TaskTemplate(task_name="break", timer_length=1800, user_id=julie.id)
     task11 = TaskTemplate(task_name="finish work day", timer_length=3600, user_id=julie.id)
+    task12 = TaskTemplate(task_name="get dressed", timer_length=600, user_id=julie.id)
 
-    tasks=[task1, task2, task3, task4, task5, task6, task7, task8, task9, task10]
+    tasks=[task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11, task12]
     db.session.add_all(tasks)
     db.session.commit()
 
-    # print("Creating sitters...")
-    # sitters = [
-    #     Sitter(
-    #         name="Jason Vorhees",
-    #         bio="Great with watching your little ones at a lake",
-    #         experience=7,
-    #         image="https://images.nightcafe.studio/jobs/6sLDmT6whBds1MnmQf6y/6sLDmT6whBds1MnmQf6y--1--5hp52_2x.jpg?tr=w-1200,c-at_max",
-    #         address="12 Crystal Lake, Wantabe, NJ 07050",
-    #         phone=1111111111,
-    #         email="jvorheesluvsyou1@madeup.com"
-    #     ),
-    #     Sitter(
-    #         name="Freddy Krueger",
-    #         bio="Ensures your pets have the best dreams",
-    #         experience=10,
-    #         image="https://static1.srcdn.com/wordpress/wp-content/uploads/2016/10/Nightmare-on-Elm-Street-6.jpg",
-    #         address="1428 Elm Street, Springwood, OH 45459",
-    #         phone=1111111111,
-    #         email="fkrueger@nightmares.com"
-    #     ),
-    #     Sitter(
-    #         name="Michael Myers",
-    #         bio="Silent but always keeps an eye on your pets",
-    #         experience=8,
-    #         image="https://coleandmarmalade.com/wp-content/uploads/2022/03/Michael-Meowers-1.jpg",
-    #         address="45 Lampkin Lane, Haddonfield, IL 60120",
-    #         phone=1111111111,
-    #         email="mmyers@halloween.com"
-    #     ),
-    #     Sitter(
-    #         name="Chucky Ray",
-    #         bio="Great with pets, especially if they like to play",
-    #         experience=5,
-    #         image="https://static1.srcdn.com/wordpress/wp-content/uploads/2021/10/Brad-Dourif-as-Chucky-with-Binx-the-Cat-in-Chucky-Episode-1.jpg",
-    #         address="123 Good Guys St, Hackensack, NJ 07601",
-    #         phone=1111111111,
-    #         email="cray@goodguys.com"
-    #     ),
-    #     Sitter(
-    #         name="Norman Bates",
-    #         bio="Takes care of your pets like they were his own",
-    #         experience=6,
-    #         image="https://m.media-amazon.com/images/M/MV5BMWZiYmM3MzItYzFiOC00N2VmLWEwOWQtZTYzYjFmNjZlMWRlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNzAzMDEzNTI@._V1_.jpg",
-    #         address="12 Old Highway, Fairvale, CA 93922",
-    #         phone=1111111111,
-    #         email="nbates@batesmotel.com"
-    #     ),
-    #     Sitter(
-    #         name="Pennywise Clown",
-    #         bio="Your pets will float with joy under my care",
-    #         experience=9,
-    #         image="https://photos.costume-works.com/full/pennywise_and_his_dog-31298-1.jpg",
-    #         address="29 Neibolt Street, Derry, ME 04401",
-    #         phone=1111111111,
-    #         email="pennywise@it.com"
-    #     )
-    # ]
-    # for sitter in sitters:
-    #     db.session.add(sitter)
-    # db.session.commit()
+    print("creating routinetemplates...")
+    routine1 = RoutineTemplate(routine_name="Morning Routine - No Gym", total_timer_length=(task1.timer_length + task2.timer_length + task3.timer_length + task5.timer_length + task6.timer_length + task7.timer_length + task8.timer_length + task9.timer_length + task10.timer_length + task11.timer_length + task12.timer_length),  user_id=julie.id)
+    routine2 = RoutineTemplate(routine_name="Morning Routine - Gym", total_timer_length=(task1.timer_length + task2.timer_length + task3.timer_length + task5.timer_length + task6.timer_length + task7.timer_length + task8.timer_length + task9.timer_length + task10.timer_length + task11.timer_length + task4.timer_length),  user_id=julie.id)
 
-    # print("Creating visits...")
-    # visitA = Visit(visit_notes="Garfield was very sweet today. He ate all his food and I watched him drink some water. We played fetch for a while and cuddled while watching Bridgerton. A great visit!", sitter_id=sitters[0].id, pet_id=garfield.id, owner_id=julie.id, date=date(2024, 1, 2), check_in_time=time(14, 27))
-    # visitB = Visit(visit_notes="Garfield was aloof today. I guess we're not friends anymore. I am sad.", sitter_id=sitters[0].id, pet_id=garfield.id, owner_id=julie.id, date=date(2024, 2, 1), check_in_time=time(12, 12))
-    # visitC = Visit(visit_notes="Rose was a good girl!", sitter_id=sitters[1].id, pet_id=rose.id, owner_id=billy.id, date=date(2024, 5, 27), check_in_time=time(15, 32))
-    # visitD = Visit(visit_notes="Buddy was very bad today. I would like an added tip for the inconvenience.", sitter_id=sitters[2].id, pet_id=buddy.id, owner_id=billy.id, date=date(2024, 6, 15), check_in_time=time(10, 15))
-    # visitE = Visit(visit_notes="Nothing to report.", sitter_id=sitters[3].id, pet_id=rose.id, owner_id=billy.id, date=date(2024, 8, 10), check_in_time=time(9, 45))
-    # visitF = Visit(visit_notes="Nothing to report.", sitter_id=sitters[4].id, pet_id=buddy.id, owner_id=billy.id, date=date(2024, 9, 20), check_in_time=time(11, 30))
-    # visitG = Visit(visit_notes="I adore garfield!", sitter_id=sitters[5].id, pet_id=garfield.id, owner_id=julie.id, date=date(2024, 10, 5), check_in_time=time(14, 0))
-    # visitH = Visit(visit_notes="Olivia is so cute!!!! She hid from me at first but then came out for cuddles", sitter_id=sitters[2].id, pet_id=olivia.id, owner_id=julie.id, date=date(2024, 10, 5), check_in_time=time(14, 0))
-    # visits = [visitA, visitB, visitC, visitD, visitE, visitF, visitG, visitH]
-    # db.session.add_all(visits)
-    # db.session.commit()
+    routines=[routine1, routine2]
+    db.session.add_all(routines)
+    db.session.commit()
+
+
+    print("creating taskroutines...")
+    taskroutine1 = TaskRoutine(tasktemplate_id=task1.id, routinetemplate_id=routine1.id)
+    taskroutine2 = TaskRoutine(tasktemplate_id=task2.id, routinetemplate_id=routine1.id)
+    taskroutine3 = TaskRoutine(tasktemplate_id=task3.id, routinetemplate_id=routine1.id)
+    taskroutine4 = TaskRoutine(tasktemplate_id=task12.id, routinetemplate_id=routine1.id)
+    taskroutine5 = TaskRoutine(tasktemplate_id=task5.id, routinetemplate_id=routine1.id)
+    taskroutine6 = TaskRoutine(tasktemplate_id=task6.id, routinetemplate_id=routine1.id)
+    taskroutine7 = TaskRoutine(tasktemplate_id=task7.id, routinetemplate_id=routine1.id)
+    taskroutine8 = TaskRoutine(tasktemplate_id=task8.id, routinetemplate_id=routine1.id)
+    taskroutine9 = TaskRoutine(tasktemplate_id=task9.id, routinetemplate_id=routine1.id)
+    taskroutine10 = TaskRoutine(tasktemplate_id=task10.id, routinetemplate_id=routine1.id)
+    taskroutine11 = TaskRoutine(tasktemplate_id=task11.id, routinetemplate_id=routine1.id)
+    taskroutine12 = TaskRoutine(tasktemplate_id=task1.id, routinetemplate_id=routine2.id)
+    taskroutine13 = TaskRoutine(tasktemplate_id=task2.id, routinetemplate_id=routine2.id)
+    taskroutine14 = TaskRoutine(tasktemplate_id=task3.id, routinetemplate_id=routine2.id)
+    taskroutine15 = TaskRoutine(tasktemplate_id=task4.id, routinetemplate_id=routine2.id)
+    taskroutine16 = TaskRoutine(tasktemplate_id=task5.id, routinetemplate_id=routine2.id)
+    taskroutine17 = TaskRoutine(tasktemplate_id=task6.id, routinetemplate_id=routine2.id)
+    taskroutine18 = TaskRoutine(tasktemplate_id=task7.id, routinetemplate_id=routine2.id)
+    taskroutine19 = TaskRoutine(tasktemplate_id=task8.id, routinetemplate_id=routine2.id)
+    taskroutine20 = TaskRoutine(tasktemplate_id=task9.id, routinetemplate_id=routine2.id)
+    taskroutine21 = TaskRoutine(tasktemplate_id=task10.id, routinetemplate_id=routine2.id)
+    taskroutine22 = TaskRoutine(tasktemplate_id=task11.id, routinetemplate_id=routine2.id)
+
+    taskroutines=[taskroutine1, taskroutine2, taskroutine3, taskroutine4, taskroutine5, taskroutine6, taskroutine7, taskroutine8, taskroutine9, taskroutine10, taskroutine11, taskroutine12, taskroutine13, taskroutine14, taskroutine15, taskroutine16, taskroutine17, taskroutine18, taskroutine19, taskroutine20, taskroutine21, taskroutine22]
+    db.session.add_all(taskroutines)
+    db.session.commit()
 
     print("Seeding done!")
 
