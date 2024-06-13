@@ -16,6 +16,7 @@ class User(db.Model, SerializerMixin):
     # visits = db.relationship("Visit", back_populates="owner")
     # pets = db.relationship("Pet", back_populates="owner")
     # sitters = association_proxy("visits", "sitter")
+    # test
 
     # @hybrid_property
     # def unique_sitters(self):
