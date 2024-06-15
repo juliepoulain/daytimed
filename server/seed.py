@@ -20,7 +20,7 @@ with app.app_context():
 
 
     print("Creating users...")
-    julie = User(name="Julie", email="juliempoulain@gmail.com")
+    julie = User(name="Julie Poulain", email="juliempoulain@gmail.com", phone=9785510848)
     andrew = User(name="Andrew", email="andrew@example.com")
     kelly = User(name="Kelly", email="kelly@example.com")
     users = [julie, andrew, kelly]

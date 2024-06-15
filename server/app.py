@@ -39,6 +39,16 @@ class UsersById(Resource):
         return make_response(jsonify(user.to_dict()), 200)
     
 api.add_resource(UsersById, '/api/users/<int:id>')
+
+
+class UsersByPhone(Resource):
+    def get(self, phone):
+        user = User.query.filter_by(phone=phone).first()
+        if not user:
+            return make_response({"error": "User not found"}, 404)
+        return make_response(jsonify(user.to_dict()), 200)
+
+api.add_resource(UsersByPhone, '/api/users/phone/<int:phone>')
         
 class TaskTemplates(Resource):
     def get(self):

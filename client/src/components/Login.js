@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 
-function Login({ ownerId, setOwnerId }) {
+function Login({ userId, setUserId }) {
   const history = useHistory();
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ function Login({ ownerId, setOwnerId }) {
   function handleSubmit(e) {
     e.preventDefault();
     const formattedPhone = phone.replace(/\D/g, "");
-    fetch(`/api/owners/phone/${formattedPhone}`)
+    fetch(`/api/users/phone/${formattedPhone}`)
       .then((r) => {
         if (!r.ok) {
           throw new Error("Network response was not ok");
@@ -18,7 +18,7 @@ function Login({ ownerId, setOwnerId }) {
         return r.json();
       })
       .then((data) => {
-        setOwnerId(data.id);
+        setUserId(data.id);
         history.push(`/`);
       })
       .catch((error) => {
@@ -27,6 +27,7 @@ function Login({ ownerId, setOwnerId }) {
         );
         console.error("Error logging in:", error);
       });
+      console.log(userId)
   }
 
   return (

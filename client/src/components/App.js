@@ -1,69 +1,48 @@
 import React, { useState } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import OwnerProfile from "./OwnerProfile";
+import UserProfile from "./UserProfile";
 import Homepage from "./Homepage";
-import VisitPage from "./VisitPage";
-import PetsList from "./PetsList";
-import SeeMorePetCard from "./SeeMorePetCard";
 import Login from "./Login";
-import SitterProfile from "./SitterProfile";
 import NavBar from "./NavBar";
 import HomepageLogout from "./HomepageLogout";
 
 function App() {
-  const [ownerId, setOwnerId] = useState("");
+  const [userId, setUserId] = useState("");
 
   return (
     <Router>
-      <NavBar ownerId={ownerId} />
+      <NavBar userId={userId} />
       <div className="wrapper">
         <Switch>
           <Route exact path="/">
-            {ownerId ? (
-              <Homepage ownerId={ownerId} setOwnerId={setOwnerId} />
+            {userId ? (
+              <Homepage userId={userId} setUserId={setUserId} />
             ) : (
-              <HomepageLogout ownerId={ownerId} setOwnerId={setOwnerId} />
+              <HomepageLogout userId={userId} setUserId={setUserId} />
             )}
           </Route>
           <Route exact path="/login">
-            <Login ownerId={ownerId} setOwnerId={setOwnerId} />
+            <Login userId={userId} setUserId={setUserId} />
           </Route>
-          <Route exact path="/owner">
-            {ownerId ? (
-              <OwnerProfile ownerId={ownerId} setOwnerId={setOwnerId} />
+          <Route exact path="/user">
+            {userId ? (
+              <UserProfile userId={userId} setUserId={setUserId} />
             ) : (
-              <Login ownerId={ownerId} setOwnerId={setOwnerId} />
+              <Login userId={userId} setUserId={setUserId} />
             )}
           </Route>
-          <Route exact path="/owner/:id">
-            {ownerId ? (
-              <OwnerProfile ownerId={ownerId} setOwnerId={setOwnerId} />
+          <Route exact path="/user/:id">
+            {userId ? (
+              <UserProfile userId={userId} setUserId={setUserId} />
             ) : (
-              <Login ownerId={ownerId} setOwnerId={setOwnerId} />
+              <Login userId={userId} setUserId={setUserId} />
             )}
           </Route>
-          <Route exact path="/visit/:id">
-            {ownerId ? (
-              <VisitPage ownerId={ownerId} />
+          <Route exact path="/templates/:id">
+            {userId ? (
+              <Homepage userId={userId} setUserId={setUserId}/>
             ) : (
-              <Login ownerId={ownerId} setOwnerId={setOwnerId} />
-            )}
-          </Route>
-          <Route exact path="/sitters/:id">
-            <SitterProfile />
-          </Route>
-          <Route exact path="/pets">
-            {ownerId ? (
-              <PetsList ownerId={ownerId} setOwnerId={setOwnerId} />
-            ) : (
-              <Login ownerId={ownerId} setOwnerId={setOwnerId} />
-            )}
-          </Route>
-          <Route exact path="/pets/:id">
-            {ownerId ? (
-              <SeeMorePetCard ownerId={ownerId} />
-            ) : (
-              <Login ownerId={ownerId} setOwnerId={setOwnerId} />
+              <Login userId={userId} setUserId={setUserId} />
             )}
           </Route>
         </Switch>

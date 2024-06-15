@@ -11,6 +11,7 @@ class User(db.Model, SerializerMixin):
     name = db.Column(db.String)
     email = db.Column(db.String)
     _password_hash = db.Column(db.String)
+    phone = db.Column(db.BigInteger)
 
     # # add relationships
     tasktemplates = db.relationship("TaskTemplate", back_populates="users")
