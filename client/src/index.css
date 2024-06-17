@@ -14,6 +14,7 @@ body {
   background-color: rgb(232, 214, 229);
   margin: 0;
   padding: 0;
+  text-align: center
 }
 
 .navbar {
@@ -30,9 +31,9 @@ body {
 }
 
 .nav-link {
-  display: inline-block;
+  /* display: inline-block; */
   border-radius: 10px;
-  width: 150px;
+  width: 100%;
   padding: 8px;
   margin: 0 6px;
   background: white;
@@ -54,11 +55,26 @@ body {
 }
 
 .active {
-  background: black;
+  background: rgb(68, 23, 68);
   color: white;
 }
 
-.button-link {
+.button-link, .button-link-match {
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: #3b1836;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 15px 5px;
+}
+
+.button-link:hover, .button-link-match:hover {
+  background-color: rgb(185, 150, 193);
+}
+
+.button-normal {
   display: inline-block;
   padding: 10px 10px;
   background-color: #000000;
@@ -66,22 +82,7 @@ body {
   text-decoration: none;
   border-radius: 25px;
   cursor: pointer;
-  margin: 2px 2px;
-}
-
-.button-link:hover {
-  background-color: rgb(42, 44, 52);
-}
-
-button {
-  display: inline-block;
-  padding: 10px 10px;
-  background-color: #000000;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 25px;
-  cursor: pointer;
-  margin: 2px 2px;
+  margin: 2px 2px 15px 2px;
 }
 
 button:hover {
@@ -119,7 +120,7 @@ select {
   {
   background-color: rgb(201, 173, 203);
   padding: 10px 10px 10px 10px;
-  margin: 10px 30px 10px 10px;
+  margin: 10px 20px 10px 10px;
   text-align: center;
   box-shadow: rgba(93, 41, 95, 0.5) 0 2px 5px 0;
   border: 1px solid #4a2650;

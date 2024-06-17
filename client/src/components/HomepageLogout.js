@@ -7,9 +7,6 @@ function HomepageLogout({ setUserId }) {
   return (
     <>
       <Login setUserId={setUserId} />
-      <div className="homepage">
-            <h2>DAYTIMED</h2>
-      </div>
     </>
   );
 }

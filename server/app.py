@@ -22,6 +22,7 @@ class Users(Resource):
         new_user = User(
             name=data['name'],
             email=data['email'],
+            phone=data['phone']
         )
         db.session.add(new_user)
         db.session.commit()
@@ -101,6 +102,15 @@ class TasksById(Resource):
     
 api.add_resource(TasksById, '/api/tasktemplates/<int:id>')
 
+class TasksByUserId(Resource):
+    def get(self, user_id):
+        tasks = [task.to_dict() for task in TaskTemplate.query.filter_by(user_id=user_id)]
+        if not tasks:
+            return make_response({"error": "tasks not found"}, 404)
+        return make_response(jsonify(tasks), 200)
+
+api.add_resource(TasksByUserId, '/api/tasktemplates/users/<int:user_id>')
+
 class RoutineTemplates(Resource):
     def get(self):
         routinetemplates = [routinetemplate.to_dict() for routinetemplate in RoutineTemplate.query.all()]
@@ -149,13 +159,21 @@ class RoutinesById(Resource):
     
 api.add_resource(RoutinesById, '/api/routinetemplates/<int:id>')
 
-
 class TaskRoutines(Resource):
     def get(self):
         taskroutines = [taskroutine.to_dict() for taskroutine in TaskRoutine.query.all()]
         return make_response(jsonify(taskroutines), 200)
     
 api.add_resource(TaskRoutines, '/api/taskroutines')
+
+class TasksByRoutine(Resource):
+    def get(self, routinetemplate_id):
+        tasks = [task.to_dict() for task in TaskRoutine.query.filter_by(routinetemplate_id=routinetemplate_id)]
+        if not tasks:
+            return make_response({"error": "tasks not found"}, 404)
+        return make_response(jsonify(tasks), 200)
+
+api.add_resource(TasksByRoutine, '/api/taskroutines/routine/<int:routinetemplate_id>')
 
 
 if __name__ == '__main__':

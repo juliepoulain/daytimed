@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import InputMask from "react-input-mask";
 
 function UserProfile({ userId }) {
-  console.log(userId);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

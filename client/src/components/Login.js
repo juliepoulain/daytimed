@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 
-function Login({ userId, setUserId }) {
+function Login({ userId, setUserId, phone, setPhone }) {
   const history = useHistory();
-  const [phone, setPhone] = useState("");
   const [error, setError] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
     const formattedPhone = phone.replace(/\D/g, "");
+    console.log(formattedPhone)
     fetch(`/api/users/phone/${formattedPhone}`)
       .then((r) => {
         if (!r.ok) {
@@ -18,8 +18,10 @@ function Login({ userId, setUserId }) {
         return r.json();
       })
       .then((data) => {
-        setUserId(data.id);
-        history.push(`/`);
+        console.log(data)
+        console.log(userId)
+        setUserId(data.id)
+        history.push(`/`)
       })
       .catch((error) => {
         setError(

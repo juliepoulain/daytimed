@@ -40,8 +40,9 @@ with app.app_context():
     task10 = TaskTemplate(task_name="break", timer_length=1800, user_id=julie.id)
     task11 = TaskTemplate(task_name="finish work day", timer_length=3600, user_id=julie.id)
     task12 = TaskTemplate(task_name="get dressed", timer_length=600, user_id=julie.id)
+    task13 = TaskTemplate(task_name="test", timer_length=100, user_id=andrew.id)
 
-    tasks=[task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11, task12]
+    tasks=[task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11, task12, task13]
     db.session.add_all(tasks)
     db.session.commit()
 

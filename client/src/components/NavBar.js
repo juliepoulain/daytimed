@@ -5,16 +5,19 @@ function NavBar({ userId }) {
   return (
     <nav className="navbar">
         <NavLink to="/" exact className="nav-link" activeClassName="active">
-          Home
+          TIMER
         </NavLink>
         <NavLink to="/routines" className="nav-link" activeClassName="active">
-          Routines
+          ROUTINES
+        </NavLink>
+        <NavLink to="/manage-tasks" className="nav-link" activeClassName="active">
+          TASKS
         </NavLink>
         <NavLink to={`/user/${userId}`} className="nav-link" activeClassName="active">
-          Profile
+          PROFILE
         </NavLink>
         <NavLink to="/login" className="nav-link" activeClassName="active">
-          Log Out
+          LOG OUT
         </NavLink>
     </nav>
   );
