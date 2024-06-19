@@ -26,7 +26,7 @@ function ManageTask({ userId }) {
   };
 
   const handleEditClick = (task) => {
-    setEditTask(task);
+    setEditTask(task.id);
     setEditSuccess(null)
   };
 
@@ -91,7 +91,7 @@ function ManageTask({ userId }) {
             >
               Delete Task
             </button>
-            {editTask && (
+            {editTask == task.id ? (
               <EditTaskForm
                 task={task}
                 userId={userId}
@@ -100,7 +100,8 @@ function ManageTask({ userId }) {
                 tasks={tasks}
                 setTasks={setTasks}
               />
-            )}
+            ) : (<></>)
+            }
           </li>
         ))}
       </ul>

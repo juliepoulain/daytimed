@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Countdown from "./Countdown"
 
-function HomepageLogout({ phone }) {
+function Homepage({ phone }) {
   const [routines, setRoutines] = useState([]);
   const formattedPhone = phone.replace(/\D/g, "");
 
@@ -25,7 +25,7 @@ function HomepageLogout({ phone }) {
         <form>
           <select>
           {routines.map((routine) => (
-          <option>
+          <option key={routine.id}>
             {routine.routine_name}
           </option>
         ))}
@@ -38,4 +38,4 @@ function HomepageLogout({ phone }) {
   );
 }
 
-export default HomepageLogout;
+export default Homepage;

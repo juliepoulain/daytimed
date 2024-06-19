@@ -1,5 +1,5 @@
-import React from 'react';
-import Countdown from 'react-countdown';
+import React from "react";
+import Countdown from "react-countdown";
 
 const CountdownTimer = () => {
   // Completion message when timer finishes
@@ -22,8 +22,11 @@ const CountdownTimer = () => {
 
   return (
     <div>
-      <h2>Countdown Timer</h2>
-      <Countdown date={Date.now() + 5000} renderer={renderer} />
+      <h1>Current Task Name</h1>
+      <h1>
+        <Countdown date={Date.now() + 5000} renderer={renderer} />
+      </h1>
+      <button className="button-normal">PAUSE TIMER</button>
     </div>
   );
 };

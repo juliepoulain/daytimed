@@ -10,7 +10,16 @@ function EditTaskForm({
 }) {
   const [taskName, setTaskName] = useState("");
   const [taskNote, setTaskNote] = useState("");
-  const [timer, setTimer] = useState(null);
+  const [timer, setTimer] = useState("");
+
+  useEffect(() => {
+    if (task) {
+      setTaskName(task.task_name);
+      setTaskNote(task.task_note);
+      setTimer(task.timer_length);
+    }
+  }, [task]);
+
   const handleEditTask = (updatedTask) => {
     setTasks(
       tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
@@ -42,9 +51,6 @@ function EditTaskForm({
       })
       .then((updatedTask) => {
         handleEditTask(updatedTask);
-        setTaskName("");
-        setTaskNote("");
-        setTimer("");
         setEditSuccess("Task Updated!");
       })
       .catch((error) => {

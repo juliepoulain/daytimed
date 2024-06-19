@@ -19,6 +19,12 @@ class User(db.Model, SerializerMixin):
     # add serialization rules
     serialize_rules = ("-tasktemplates",)
 
+    @validates("phone")
+    def validate_phone(self, _, phone):
+        if not isinstance(phone, int) or (len(str(phone)) != 10):
+            raise ValueError("Phone must be an integer with 10 characters, no spaces")
+        return phone
+
     def __repr__(self):
         return f"<User: {self.name}>"
     
@@ -36,6 +42,12 @@ class TaskTemplate(db.Model, SerializerMixin):
 
     serialize_rules = ("-taskroutines","-users")
 
+    # @validates("timer_length")
+    # def validate_phone(self, _, timer_length):
+    #     if not isinstance(timer_length, int):
+    #         raise ValueError("Timer Length must be an integer")
+    #     return timer_length
+
     def __repr__(self):
         return f'<Task {self.id}: {self.name}>'           
     
@@ -45,8 +57,6 @@ class RoutineTemplate(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     routine_name = db.Column(db.String, nullable=False)
     total_timer_length = db.Column(db.Integer)
-    # start_time = db.Column(db.Integer)
-    # end_time = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     # add relationships

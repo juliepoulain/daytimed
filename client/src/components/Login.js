@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
 
-function Login({ userId, setUserId, phone, setPhone }) {
+function Login({ phone, setPhone, userId, setUserId }) {
   const history = useHistory();
   const [error, setError] = useState(null);
 

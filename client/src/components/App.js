@@ -4,7 +4,6 @@ import UserProfile from "./UserProfile";
 import Homepage from "./Homepage";
 import Login from "./Login";
 import NavBar from "./NavBar";
-import HomepageLogout from "./HomepageLogout";
 import Routine from "./Routine";
 import RoutineWithTask from "./RoutineWithTask";
 import ManageTask from "./ManageTask";
@@ -35,7 +34,7 @@ function App() {
                 setPhone={setPhone}
               />
             ) : (
-              <HomepageLogout
+              <Login
                 userId={userId}
                 setUserId={setUserId}
                 phone={phone}
