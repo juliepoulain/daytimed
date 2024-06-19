@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Login from "./Login";
 
-
-function HomepageLogout({ setUserId }) {
-
+function HomepageLogout({ setUserId, userId, phone, setPhone }) {
   return (
     <>
-      <Login setUserId={setUserId} />
+      <Login
+        userId={userId}
+        setUserId={setUserId}
+        phone={phone}
+        setPhone={setPhone}
+      />
     </>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function Task() {
+function RoutineWithTask() {
   const { routineId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [data, setData] = useState({})
@@ -14,7 +14,7 @@ function Task() {
       hours > 0 && minutes < 10 ? "0" : ""
     }${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
-  
+
   useEffect(() => {
     fetch(`/api/routinetemplates/${routineId}`)
       .then((r) => {
@@ -49,7 +49,7 @@ function Task() {
             ) : (
               <></>
             )}
-            <button className="button-normal">REMOVE TASK</button>
+            <button className="button-normal">REMOVE TASK FROM ROUTINE</button>
           </li>
         ))}
       </ul>
@@ -58,4 +58,4 @@ function Task() {
   );
 }
 
-export default Task;
+export default RoutineWithTask;

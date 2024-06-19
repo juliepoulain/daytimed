@@ -28,6 +28,7 @@ function Routine({ phone }) {
 
   return (
     <div>
+      <h1>MY ROUTINES</h1>
       <button className="button-normal">CREATE NEW ROUTINE</button>
       <ul>
         {routines.map((routine) => (
@@ -35,7 +36,7 @@ function Routine({ phone }) {
             <h3>{routine.routine_name}</h3>
             Total Timer Length: {formatTime(routine.total_timer_length)}
             <br />
-            <Link to={`/tasks/${routine.id}`} className="button-link">
+            <Link to={`/routinetasks/${routine.id}`} className="button-link">
               View/Add Tasks
             </Link>
             <br />

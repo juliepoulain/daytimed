@@ -6,8 +6,8 @@ import Login from "./Login";
 import NavBar from "./NavBar";
 import HomepageLogout from "./HomepageLogout";
 import Routine from "./Routine";
-import Task from "./Task"
-import ManageTask from "./ManageTask"
+import RoutineWithTask from "./RoutineWithTask";
+import ManageTask from "./ManageTask";
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -28,7 +28,12 @@ function App() {
           </Route>
           <Route exact path="/">
             {userId ? (
-              <Homepage userId={userId} setUserId={setUserId} />
+              <Homepage
+                userId={userId}
+                setUserId={setUserId}
+                phone={phone}
+                setPhone={setPhone}
+              />
             ) : (
               <HomepageLogout
                 userId={userId}
@@ -79,9 +84,9 @@ function App() {
               />
             )}
           </Route>
-          <Route exact path="/tasks/:routineId">
+          <Route exact path="/routinetasks/:routineId">
             {userId ? (
-              <Task
+              <RoutineWithTask
                 userId={userId}
                 setUserId={setUserId}
                 phone={phone}
