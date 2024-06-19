@@ -1,17 +1,18 @@
 import React from "react";
 import Countdown from "react-countdown";
 
-const CountdownTimer = () => {
-  // Completion message when timer finishes
-  const Completionist = () => <span>Time's up!</span>;
-
-  // Renderer callback to customize the output
+const CountdownTimer = ({
+  timerRun,
+  setTimerRun,
+  setCancelButton,
+  cancelButton,
+  taskRoutines
+}) => {
+    
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
-      // Render a completion message
-      return <Completionist />;
+      return <h4>Time's Up!</h4>;
     } else {
-      // Render the countdown
       return (
         <span>
           {hours}:{minutes}:{seconds}
@@ -20,13 +21,33 @@ const CountdownTimer = () => {
     }
   };
 
+  function handleCancel(e) {
+    e.preventDefault();
+    setCancelButton(false);
+    setTimerRun(false);
+  }
+
   return (
     <div>
       <h1>Current Task Name</h1>
-      <h1>
-        <Countdown date={Date.now() + 5000} renderer={renderer} />
-      </h1>
-      <button className="button-normal">PAUSE TIMER</button>
+      {timerRun ? (
+        <h1>
+          <Countdown date={Date.now() + 10000} renderer={renderer} />
+        </h1>
+      ) : (
+        <></>
+      )}
+      {cancelButton ? (
+        <button
+          type="submit"
+          className="button-normal"
+          onClick={(e) => handleCancel(e)}
+        >
+          CANCEL
+        </button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

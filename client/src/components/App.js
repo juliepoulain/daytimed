@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import UserProfile from "./UserProfile";
 import Homepage from "./Homepage";
@@ -7,10 +7,11 @@ import NavBar from "./NavBar";
 import Routine from "./Routine";
 import RoutineWithTask from "./RoutineWithTask";
 import ManageTask from "./ManageTask";
+import { UserContext } from "./UserContext";
+
 
 function App() {
-  const [userId, setUserId] = useState("");
-  const [phone, setPhone] = useState("");
+  const { userId, setUserId, phone, setPhone } = useContext(UserContext);
 
   return (
     <Router>
