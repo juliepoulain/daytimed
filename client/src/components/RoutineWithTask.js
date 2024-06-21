@@ -56,8 +56,8 @@ function RoutineWithTask({userId}) {
       </button>
       {addTask && (
         <NewTaskToRoutineForm
-          setTasksRender={setTasks}
-          tasksRender={tasks}
+          setPageTasks={setTasks}
+          pageTasks={tasks}
           userId={userId}
           setAddTask={setAddTask}
           addTask={addTask}

@@ -6,6 +6,8 @@ function NewTaskRoutineForm({
   setSuccess,
   routineId,
   routineName,
+  pageTasks,
+  setPageTasks
 }) {
   const [taskName, setTaskName] = useState("");
   const [taskNote, setTaskNote] = useState("");
@@ -36,22 +38,31 @@ function NewTaskRoutineForm({
     }${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
+//   function handleAddTask(data) {
+//     const newTask = {
+//         taskroutines
+//         task_name: taskName,
+//         task_note: taskNote,
+//         timer_length: timer,
+//         user_id: userId,
+//       };
+//     setPageTasks([...tasks, newTask]);
+//   };
+
   function handleSubmit(e) {
     e.preventDefault();
-
     fetch(`/api/tasktemplates/${selectedTask}`)
-      .then((r) => {
-        if (!r.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return r.json();
-      })
-      .then((data) => {
-        setSelectedTaskData(data);
-      });
+    .then((r) => {
+      if (!r.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return r.json();
+    })
+    .then((data) => {
+      setSelectedTaskData(data);
+    //   handleAddTask(data)
+    });
   }
-
-  console.log(selectedTaskData);
 
   return (
     <div>
