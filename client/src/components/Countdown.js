@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Countdown from "react-countdown";
 
 const CountdownTimer = ({
@@ -6,17 +6,50 @@ const CountdownTimer = ({
   setTimerRun,
   setCancelButton,
   cancelButton,
-  taskRoutines
+  taskRoutines,
+  currentTask,
+  setCurrentTask,
+  timerOffset,
+  setTimerOffset,
 }) => {
-    
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (taskRoutines.length > 0 && index < taskRoutines.length) {
+      setCurrentTask(taskRoutines[index].tasktemplates.task_name);
+      setTimerOffset(taskRoutines[index].tasktemplates.timer_length);
+    }
+  }, [index, taskRoutines, setCurrentTask, setTimerOffset]);
+
+  const handleCountdownComplete = useCallback(() => {
+    if (index + 1 < taskRoutines.length) {
+      setIndex((prevIndex) => prevIndex + 1);
+    } else {
+      return <h3>TIMER COMPLETE!</h3>;
+    }
+  }, [index, taskRoutines.length, setTimerRun, setCancelButton]);
+
   const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      return <h4>Time's Up!</h4>;
+    if (hours < 1 && minutes < 1 && seconds == 1) {
+      handleCountdownComplete();
+      return (
+        <div>
+          <h3>
+            {currentTask}
+            <br />
+            {hours}:{minutes}:{seconds}
+          </h3>
+        </div>
+      );
     } else {
       return (
-        <span>
-          {hours}:{minutes}:{seconds}
-        </span>
+        <div>
+          <h3>
+            {currentTask}
+            <br />
+            {hours}:{minutes}:{seconds}
+          </h3>
+        </div>
       );
     }
   };
@@ -25,14 +58,19 @@ const CountdownTimer = ({
     e.preventDefault();
     setCancelButton(false);
     setTimerRun(false);
+    setIndex(0);
+    setCurrentTask(taskRoutines[0].tasktemplates.task_name);
+    setTimerOffset(taskRoutines[0].tasktemplates.timer_length);
   }
-
+  console.log(index);
   return (
     <div>
-      <h1>Current Task Name</h1>
       {timerRun ? (
         <h1>
-          <Countdown date={Date.now() + 10000} renderer={renderer} />
+          <Countdown
+            date={Date.now() + timerOffset * 1000}
+            renderer={renderer}
+          />
         </h1>
       ) : (
         <></>

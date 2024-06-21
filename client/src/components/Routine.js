@@ -29,7 +29,7 @@ function Routine({ phone }) {
   return (
     <div>
       <h1>MY ROUTINES</h1>
-      <button className="button-normal">CREATE NEW ROUTINE</button>
+      {/* <button className="button-normal">CREATE NEW ROUTINE</button> */}
       <ul>
         {routines.map((routine) => (
           <li key={routine.id} className="card">
@@ -37,11 +37,11 @@ function Routine({ phone }) {
             Total Timer Length: {formatTime(routine.total_timer_length)}
             <br />
             <Link to={`/routinetasks/${routine.id}`} className="button-link">
-              View/Add Tasks
+              View Tasks
             </Link>
             <br />
-            <button className="button-normal">Rename Routine</button>
-            <button className="button-normal">Delete Routine</button>
+            {/* <button className="button-normal">Rename Routine</button>
+            <button className="button-normal">Delete Routine</button> */}
           </li>
         ))}
       </ul>

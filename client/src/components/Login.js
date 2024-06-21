@@ -9,7 +9,6 @@ function Login({ phone, setPhone, userId, setUserId }) {
   function handleSubmit(e) {
     e.preventDefault();
     const formattedPhone = phone.replace(/\D/g, "");
-    console.log(formattedPhone)
     fetch(`/api/users/phone/${formattedPhone}`)
       .then((r) => {
         if (!r.ok) {
@@ -18,8 +17,6 @@ function Login({ phone, setPhone, userId, setUserId }) {
         return r.json();
       })
       .then((data) => {
-        console.log(data)
-        console.log(userId)
         setUserId(data.id)
         history.push(`/`)
       })
@@ -29,7 +26,6 @@ function Login({ phone, setPhone, userId, setUserId }) {
         );
         console.error("Error logging in:", error);
       });
-      console.log(userId)
   }
 
   return (
