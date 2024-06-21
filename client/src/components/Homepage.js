@@ -9,7 +9,8 @@ function Homepage({ phone }) {
   const [timerRun, setTimerRun] = useState(false);
   const [currentTask, setCurrentTask] = useState(null)
   const [timerOffset, setTimerOffset] = useState(null);
-
+  const [countdownKey, setCountdownKey] = useState(0);
+  const [totalTimer, setTotalTimer] = useState("")
   const formattedPhone = phone.replace(/\D/g, "");
 
   useEffect(() => {
@@ -46,6 +47,8 @@ function Homepage({ phone }) {
         setTaskRoutines(data);
         setCurrentTask(data[0].tasktemplates.task_name)
         setTimerOffset(data[0].tasktemplates.timer_length)
+        setCountdownKey((prevKey) => prevKey + 1)
+        setTotalTimer(data[0].routinetemplates.total_timer_length)
       });
   }
 
@@ -75,6 +78,9 @@ function Homepage({ phone }) {
             setCurrentTask={setCurrentTask}
             timerOffset={timerOffset}
             setTimerOffset={setTimerOffset}
+            countdownKey={countdownKey}
+            setCountdownKey={setCountdownKey}
+            totalTimer={totalTimer}
           />
         ) : (
           <></>

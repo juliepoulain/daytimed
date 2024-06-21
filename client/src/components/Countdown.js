@@ -11,8 +11,20 @@ const CountdownTimer = ({
   setCurrentTask,
   timerOffset,
   setTimerOffset,
+  countdownKey,
+  setCountdownKey,
+  totalTimer,
 }) => {
   const [index, setIndex] = useState(0);
+
+  const formatTime = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours > 0 ? `${hours}:` : ""}${
+      hours > 0 && minutes < 10 ? "0" : ""
+    }${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
 
   useEffect(() => {
     if (taskRoutines.length > 0 && index < taskRoutines.length) {
@@ -21,24 +33,25 @@ const CountdownTimer = ({
     }
   }, [index, taskRoutines, setCurrentTask, setTimerOffset]);
 
-  const handleCountdownComplete = useCallback(() => {
+  const handleNext = () => {
     if (index + 1 < taskRoutines.length) {
       setIndex((prevIndex) => prevIndex + 1);
-    } else {
-      return <h3>TIMER COMPLETE!</h3>;
+      setCountdownKey((prevKey) => prevKey + 1);
     }
-  }, [index, taskRoutines.length, setTimerRun, setCancelButton]);
+  };
+
+  const handlePrev = () => {
+    if (index - 1 != -1) {
+      setIndex((prevIndex) => prevIndex - 1);
+      setCountdownKey((prevKey) => prevKey + 1);
+    }
+  };
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (hours < 1 && minutes < 1 && seconds == 1) {
-      handleCountdownComplete();
+    if (completed) {
       return (
         <div>
-          <h3>
-            {currentTask}
-            <br />
-            {hours}:{minutes}:{seconds}
-          </h3>
+          <h3>Task: "{currentTask}" is now complete!</h3>
         </div>
       );
     } else {
@@ -54,6 +67,8 @@ const CountdownTimer = ({
     }
   };
 
+  console.log(index);
+
   function handleCancel(e) {
     e.preventDefault();
     setCancelButton(false);
@@ -68,6 +83,7 @@ const CountdownTimer = ({
       {timerRun ? (
         <h1>
           <Countdown
+            key={countdownKey}
             date={Date.now() + timerOffset * 1000}
             renderer={renderer}
           />
@@ -75,14 +91,37 @@ const CountdownTimer = ({
       ) : (
         <></>
       )}
+      {timerRun ? (
+        <button class="button-normal" onClick={handlePrev}>
+          PREV
+        </button>
+      ) : (
+        <></>
+      )}
+      {timerRun ? (
+        <button class="button-normal" onClick={handleNext}>
+          NEXT
+        </button>
+      ) : (
+        <></>
+      )}
+      <br />
       {cancelButton ? (
         <button
           type="submit"
           className="button-normal"
           onClick={(e) => handleCancel(e)}
         >
-          CANCEL
+          CANCEL ROUTINE
         </button>
+      ) : (
+        <></>
+      )}
+      {timerRun ? (
+        <div>
+          <h3>Total Routine Length: {formatTime(totalTimer)}</h3>
+          {/* <h3>Complete Routine At: </h3> */}
+        </div>
       ) : (
         <></>
       )}
