@@ -32,7 +32,8 @@ function RoutineWithTask() {
   return (
     <div>
       <h2>{data.routine_name}</h2>
-      {/* <button className="button-link-match">ADD TASKS TO THIS ROUTINE</button> */}
+      <button className="button-link-match">ADD TASKS TO THIS ROUTINE</button>
+      <br />
       <Link to={`/routines`} className="button-link">Return to Routines</Link>
       <Link to={`/manage-tasks`} className="button-link">Manage All Tasks</Link>
       <ul>
@@ -48,7 +49,7 @@ function RoutineWithTask() {
             ) : (
               <></>
             )}
-            {/* <button className="button-normal">REMOVE TASK FROM ROUTINE</button> */}
+            <button className="button-normal">REMOVE TASK FROM ROUTINE</button>
           </li>
         ))}
       </ul>
