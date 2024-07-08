@@ -67,6 +67,20 @@ const CountdownTimer = ({
     }
   };
 
+  const renderer2 = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <div>Routine Complete!</div>;
+    } else {
+      return (
+        <div>
+          <h3>
+            {hours}:{minutes}:{seconds}
+          </h3>
+        </div>
+      );
+    }
+  };
+
   console.log(index);
 
   function handleCancel(e) {
@@ -119,8 +133,15 @@ const CountdownTimer = ({
       )}
       {timerRun ? (
         <div>
-          <h3>Total Routine Length: {formatTime(totalTimer)}</h3>
-          {/* <h3>Complete Routine At: </h3> */}
+          <h3>
+            Total Routine Time Left:
+            <Countdown
+              key={countdownKey}
+              date={Date.now() + totalTimer * 1000}
+              renderer={renderer2}
+            />
+          </h3>
+          <h3>COMPLETE BY: </h3>
         </div>
       ) : (
         <></>
