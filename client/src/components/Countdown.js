@@ -16,6 +16,9 @@ const CountdownTimer = ({
   totalTimer,
 }) => {
   const [index, setIndex] = useState(0);
+  const [pause, setPause] = useState(false);
+  const [taskTimeLeft, setTaskTimeLeft] = useState(timerOffset * 1000);
+  const [totalTimeLeft, setTotalTimeLeft] = useState(totalTimer * 1000);
 
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -30,6 +33,7 @@ const CountdownTimer = ({
     if (taskRoutines.length > 0 && index < taskRoutines.length) {
       setCurrentTask(taskRoutines[index].tasktemplates.task_name);
       setTimerOffset(taskRoutines[index].tasktemplates.timer_length);
+      setTaskTimeLeft(taskRoutines[index].tasktemplates.timer_length);
     }
   }, [index, taskRoutines, setCurrentTask, setTimerOffset]);
 
@@ -37,13 +41,23 @@ const CountdownTimer = ({
     if (index + 1 < taskRoutines.length) {
       setIndex((prevIndex) => prevIndex + 1);
       setCountdownKey((prevKey) => prevKey + 1);
+      setTaskTimeLeft(
+        taskRoutines[index + 1].tasktemplates.timer_length * 1000
+      );
     }
+  };
+
+  const handlePauseResume = () => {
+    setPause(!pause);
   };
 
   const handlePrev = () => {
     if (index - 1 != -1) {
       setIndex((prevIndex) => prevIndex - 1);
       setCountdownKey((prevKey) => prevKey + 1);
+      setTaskTimeLeft(
+        taskRoutines[index - 1].tasktemplates.timer_length * 1000
+      );
     }
   };
 
@@ -67,9 +81,11 @@ const CountdownTimer = ({
     }
   };
 
-  const renderer2 = ({ hours, minutes, seconds, completed }) => {
+  const renderer2 = ({ hours, minutes, seconds, completed, paused }) => {
     if (completed) {
       return <div>Routine Complete!</div>;
+    } else if (paused) {
+      return <div>paused</div>
     } else {
       return (
         <div>
@@ -90,7 +106,10 @@ const CountdownTimer = ({
     setIndex(0);
     setCurrentTask(taskRoutines[0].tasktemplates.task_name);
     setTimerOffset(taskRoutines[0].tasktemplates.timer_length);
+    setTaskTimeLeft(taskRoutines[0].tasktemplates.timer_length);
+    setTotalTimeLeft(totalTimer * 1000);
   }
+
   console.log(index);
   return (
     <div>
@@ -98,7 +117,7 @@ const CountdownTimer = ({
         <h1>
           <Countdown
             key={countdownKey}
-            date={Date.now() + timerOffset * 1000}
+            date={Date.now() + (pause ? timerOffset*1000 : timerOffset*1000 - 1000)}
             renderer={renderer}
           />
         </h1>
@@ -108,6 +127,13 @@ const CountdownTimer = ({
       {timerRun ? (
         <button class="button-normal" onClick={handlePrev}>
           PREV
+        </button>
+      ) : (
+        <></>
+      )}
+      {timerRun ? (
+        <button className="button-normal" onClick={handlePauseResume}>
+          {pause ? "RESUME" : "PAUSE"}
         </button>
       ) : (
         <></>
@@ -136,8 +162,8 @@ const CountdownTimer = ({
           <h3>
             Total Routine Time Left:
             <Countdown
-              key={countdownKey}
-              date={Date.now() + totalTimer * 1000}
+              key={countdownKey + 1}
+              date={Date.now() + (pause ? totalTimer*1000 : totalTimer*1000 - 1000)}
               renderer={renderer2}
             />
           </h3>
