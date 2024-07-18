@@ -10,3 +10,4 @@ Daytimed was built with a react front end and python backend with sqlalchemy and
 
 ## App Walkthrough
 
+![](https://github.com/juliepoulain/daytimed/blob/main/client/public/daytimed.gif)
