@@ -131,13 +131,13 @@ const CountdownTimer = ({
       ) : (
         <></>
       )}
-      {timerRun ? (
+      {/* {timerRun ? (
         <button className="button-normal" onClick={handlePauseResume}>
           {pause ? "RESUME" : "PAUSE"}
         </button>
       ) : (
         <></>
-      )}
+      )} */}
       {timerRun ? (
         <button class="button-normal" onClick={handleNext}>
           NEXT
@@ -159,15 +159,15 @@ const CountdownTimer = ({
       )}
       {timerRun ? (
         <div>
-          <h3>
+          {/* <h3>
             Total Routine Time Left:
             <Countdown
               key={countdownKey + 1}
               date={Date.now() + (pause ? totalTimer*1000 : totalTimer*1000 - 1000)}
               renderer={renderer2}
             />
-          </h3>
-          <h3>COMPLETE BY: </h3>
+          </h3> */}
+          {/* <h3>COMPLETED BY: </h3> */}
         </div>
       ) : (
         <></>
